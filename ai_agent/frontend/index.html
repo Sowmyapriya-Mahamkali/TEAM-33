@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MB Hospital - Dashboard</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
+  --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
+  --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
+  --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
+  --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
+  --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
+  --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
+  --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+
+  /* Hospital Theme Colors */
+  --hospital-blue: #1976D2;
+  --hospital-teal: #14B8A6;
+  --hospital-light-blue: #E3F2FD;
+  --hospital-dark-sidebar: #1E293B;
+  --hospital-sidebar-hover: #334155;
+}
+
+/* Base styles */
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Hospital Theme Styles */
+.hospital-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.hospital-sidebar {
+  width: 280px;
+  background: var(--hospital-dark-sidebar);
+  color: white;
+  padding: 24px 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.hospital-main {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hospital-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.hospital-content {
+  padding: 32px;
+  flex: 1;
+}
+
+/* Logo */
+.hospital-logo {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+.hospital-logo h1 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hospital-logo::before {
+  content: "🏥";
+  font-size: 28px;
+}
+
+/* Navigation */
+.hospital-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hospital-nav li {
+  margin-bottom: 4px;
+}
+
+.hospital-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.hospital-nav a:hover {
+  background: var(--hospital-sidebar-hover);
+  color: white;
+}
+
+.hospital-nav a.active {
+  background: var(--hospital-blue);
+  color: white;
+}
+
+/* Header */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 300px;
+}
+
+.search-bar input {
+  border: none;
+  background: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.notification-btn:hover {
+  background: #f1f5f9;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.user-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--hospital-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Cards */
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.financial-card {
+  background: linear-gradient(135deg, var(--hospital-blue) 0%, var(--hospital-teal) 100%);
+  color: white;
+  grid-column: 1 / -1;
+}
+
+.financial-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.financial-amount {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.growth-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.metric-title {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--hospital-blue);
+  margin: 8px 0;
+}
+
+.metric-subtitle {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.metric-change {
+  font-size: 12px;
+  font-weight: 600;
+  color: #10b981;
+}
+
+/* Action Cards */
+.action-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.action-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.action-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.action-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: var(--hospital-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1565C0;
+}
+
+.btn-teal {
+  background: var(--hospital-teal);
+  color: white;
+}
+
+.btn-teal:hover {
+  background: #0F766E;
+}
+
+.btn-outline {
+  background: white;
+  color: var(--hospital-blue);
+  border: 2px solid var(--hospital-blue);
+}
+
+.btn-outline:hover {
+  background: var(--hospital-blue);
+  color: white;
+}
+
+/* Voice Translator */
+.voice-translator {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 32px;
+}
+
+.voice-translator h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.language-selectors {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.language-selector {
+  flex: 1;
+}
+
+.language-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.language-selector select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.microphone-container {
+  text-align: center;
+  margin: 32px 0;
+}
+
+.microphone-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--hospital-blue);
+  border: none;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.microphone-btn:hover {
+  background: #1565C0;
+  transform: scale(1.05);
+}
+
+.microphone-btn.recording {
+  background: #ef4444;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.recording-status {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+}
+
+.translation-results {
+  margin-top: 24px;
+}
+
+.result-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.result-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.result-text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* Patient Cards */
+.patient-quick-access {
+  margin-bottom: 32px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: between;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.patient-cards {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.patient-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  min-width: 280px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.patient-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.patient-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.patient-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--hospital-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.patient-info h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.patient-info p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.patient-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patient-bed {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-stable {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-critical {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-recovering {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* Incidents */
+.incidents-section {
+  margin-bottom: 32px;
+}
+
+.incidents-list {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.incident-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.incident-item:last-child {
+  border-bottom: none;
+}
+
+.incident-severity {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  min-width: 60px;
+  text-align: center;
+}
+
+.severity-high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.severity-medium {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.severity-low {
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+.incident-content {
+  flex: 1;
+}
+
+.incident-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.incident-details {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Patient Detail View */
+.patient-detail {
+  display: none;
+}
+
+.patient-detail.active {
+  display: block;
+}
+
+.patient-detail-header {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.patient-detail-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.patient-detail-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--hospital-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.patient-detail-text h2 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  color: var(--color-text);
+}
+
+.patient-detail-meta {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.doctor-info {
+  color: var(--hospital-blue);
+  font-weight: 600;
+}
+
+/* Tabs */
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+  gap: 8px;
+}
+
+.tab-btn {
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: var(--hospital-blue);
+}
+
+.tab-btn.active {
+  color: var(--hospital-blue);
+  border-bottom-color: var(--hospital-blue);
+  font-weight: 600;
+}
+
+/* Patient Content */
+.patient-content-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.clinical-notes {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.note-item {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.note-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.note-doctor {
+  font-weight: 600;
+  color: var(--hospital-blue);
+  margin: 0;
+}
+
+.note-date {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.note-content {
+  margin-bottom: 8px;
+}
+
+.note-text {
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.note-translation {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid var(--hospital-teal);
+  font-size: 14px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Appointments View */
+.appointments-view {
+  display: none;
+}
+
+.appointments-view.active {
+  display: block;
+}
+
+.appointments-header {
+  margin-bottom: 32px;
+}
+
+.appointments-header h2 {
+  margin: 0 0 8px 0;
+  color: var(--color-text);
+}
+
+.appointments-subtitle {
+  color: #64748b;
+  margin: 0;
+}
+
+.appointments-placeholder {
+  background: white;
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.appointments-placeholder h3 {
+  margin: 0 0 16px 0;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hospital-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .hospital-main {
+    margin-left: 0;
+  }
+  
+  .metric-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .patient-content-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .voice-translator {
+    margin-bottom: 16px;
+  }
+  
+  .hospital-content {
+    padding: 16px;
+  }
+}
+
+/* Connection Status */
+.connection-status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.connection-status.connected {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.connection-status.disconnected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.connection-status.connecting {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* Hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #64748b;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  color: var(--color-text);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #64748b;
+}
+
+.empty-state h3 {
+  margin: 0 0 16px 0;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Form improvements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--hospital-blue);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+/* Responsive improvements */
+@media (max-width: 1024px) {
+  .patient-content-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hospital-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .hospital-main {
+    margin-left: 0;
+  }
+  
+  .metric-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .hospital-content {
+    padding: 16px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .search-bar {
+    width: 200px;
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+    </style>
+
+</head>
+<body>
+    <div class="hospital-layout">
+        <!-- Sidebar -->
+        <div class="hospital-sidebar">
+            <div class="hospital-logo">
+                <h1>MB Hospital</h1>
+            </div>
+            
+            <nav>
+                <ul class="hospital-nav">
+                    <li><a href="#" onclick="showView('dashboard')" class="nav-link active" data-view="dashboard">📊 Dashboard</a></li>
+                    <li><a href="#" onclick="showView('patients')" class="nav-link" data-view="patients">👥 Patients</a></li>
+                    <li><a href="#" onclick="showView('appointments')" class="nav-link" data-view="appointments">📅 Appointments</a></li>
+                    <li><a href="#" class="nav-link">💊 Pharmacy</a></li>
+                    <li><a href="#" class="nav-link">🚨 Alerts &amp; Cases</a></li>
+                    <li><a href="#" class="nav-link">📈 Reports</a></li>
+                    <li><a href="#" class="nav-link">⚙️ Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="hospital-main">
+            <!-- Header -->
+            <header class="hospital-header">
+                <div class="header-left">
+                    <div class="search-bar">
+                        <span>🔍</span>
+                        <input type="text" placeholder="Search patients, records..." />
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="notification-btn">
+                        🔔
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div id="connectionStatus" class="connection-status">● Connecting...</div>
+                    <div class="user-profile">DR</div>
+                </div>
+            </header>
+            
+            <!-- Content -->
+            <main class="hospital-content">
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="dashboard-view">
+                    <!-- Financial Card -->
+                    <div class="metric-cards">
+                        <div class="metric-card financial-card">
+                            <h3>This Month</h3>
+                            <div id="monthlyRevenue" class="financial-amount">₹0</div>
+                            <div class="growth-indicator">↗️ +23% Net Extra Cash</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Metric Cards -->
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3 class="metric-title">Active IP Patients</h3>
+                            </div>
+                            <div id="activePatientCount" class="metric-value">0</div>
+                            <p id="admissionsToday" class="metric-subtitle">0 new admissions today</p>
+                            <div class="metric-change">↑12%</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3 class="metric-title">Expiry Alerts</h3>
+                            </div>
+                            <div id="expiryAlerts" class="metric-value">0</div>
+                            <p class="metric-subtitle">Items expiring in 7 days</p>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3 class="metric-title">Theft Alerts</h3>
+                            </div>
+                            <div id="incidentCount" class="metric-value">0</div>
+                            <p class="metric-subtitle">Recent incidents</p>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3 class="metric-title">System Health</h3>
+                            </div>
+                            <div class="metric-value">98.5%</div>
+                            <p class="metric-subtitle">All systems operational</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Cards -->
+                    <div class="action-cards">
+                        <div class="action-card">
+                            <h3>Start Encounter (Voice)</h3>
+                            <p>Record patient encounters with voice notes</p>
+                            <button onclick="startVoiceRecording()" class="btn btn-primary">🎤 Start Recording</button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Scan Invoice</h3>
+                            <p>Upload and process medical invoices</p>
+                            <input type="file" id="invoiceUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none" onchange="handleInvoiceUpload(event)">
+                            <button onclick="document.getElementById('invoiceUpload').click()" class="btn btn-teal">📄 Upload Invoice</button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Run Reconciliation</h3>
+                            <p>Reconcile pharmacy inventory</p>
+                            <button class="btn btn-outline">▶️ Start</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Voice Translator -->
+                    <div class="voice-translator">
+                        <h3>Voice Translator</h3>
+                        
+                        <div class="language-selectors">
+                            <div class="language-selector">
+                                <label>Source Language</label>
+                                <select id="sourceLanguage">
+                                    <option value="auto">Auto Detect</option>
+                                    <option value="en">English</option>
+                                    <option value="te">Telugu (తెలుగు)</option>
+                                    <option value="hi">Hindi (हिंदी)</option>
+                                    <option value="or">Odia (ଓଡ଼ିଆ)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="language-selector">
+                                <label>Target Language</label>
+                                <select id="targetLanguage">
+                                    <option value="en">English</option>
+                                    <option value="te">Telugu (తెలుగు)</option>
+                                    <option value="hi">Hindi (हिंदी)</option>
+                                    <option value="or">Odia (ଓଡ଼ିଆ)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="microphone-container">
+                            <button id="microphoneBtn" class="microphone-btn" onclick="toggleRecording()">🎤</button>
+                            <div id="recordingStatus" class="recording-status hidden">● RECORDING ●</div>
+                        </div>
+                        
+                        <div id="translationResults" class="translation-results hidden">
+                            <div class="result-card">
+                                <h4>Transcription</h4>
+                                <p id="transcriptionText" class="result-text"></p>
+                            </div>
+                            <div class="result-card">
+                                <h4>Translation</h4>
+                                <p id="translationText" class="result-text"></p>
+                                <div style="margin-top: 12px;">
+                                    <button onclick="playTranslation()" class="btn btn-primary">🔊 Play Audio</button>
+                                    <small style="margin-left: 12px; color: #64748b;">Wav2Vec2-Odia • gTTS</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Incidents -->
+                    <div class="incidents-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Incidents</h2>
+                            <button onclick="showAddIncidentModal()" class="btn btn-primary">+ Add Incident</button>
+                        </div>
+                        
+                        <div id="incidentsList" class="incidents-list">
+                            <div class="empty-state">
+                                <h3>No incidents recorded</h3>
+                                <p style="color: #64748b;">Click 'Add Incident' to report new incidents</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Patient Quick Access -->
+                    <div class="patient-quick-access">
+                        <div class="section-header">
+                            <h2 class="section-title">IP Patient Quick Access</h2>
+                        </div>
+                        
+                        <div class="patient-cards" id="patientCards">
+                            <!-- Patient cards will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Patient Detail View -->
+                <div id="patient-detail-view" class="patient-detail">
+                    <div class="patient-detail-header">
+                        <div class="patient-detail-info">
+                            <div id="patientDetailAvatar" class="patient-detail-avatar">RK</div>
+                            <div class="patient-detail-text">
+                                <h2 id="patientDetailName">Ramesh Kumar</h2>
+                                <div class="patient-detail-meta">
+                                    <span id="patientDetailId">IP: IP-10234</span>
+                                    <span id="patientDetailAge">45Y / Male</span>
+                                    <span id="patientDetailBed">Bed: A-12</span>
+                                    <span id="patientDetailStatus" class="status-badge status-stable">stable</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doctor-info" id="patientDetailDoctor">Dr. Kumar Reddy</div>
+                    </div>
+                    
+                    <div class="tab-navigation">
+                        <button class="tab-btn active" onclick="switchTab('notes')" data-tab="notes">Notes</button>
+                        <button class="tab-btn" onclick="switchTab('vitals')" data-tab="vitals">Vitals</button>
+                        <button class="tab-btn" onclick="switchTab('medications')" data-tab="medications">Medications</button>
+                        <button class="tab-btn" onclick="switchTab('lab')" data-tab="lab">Lab</button>
+                        <button class="tab-btn" onclick="switchTab('encounters')" data-tab="encounters">Encounters</button>
+                    </div>
+                    
+                    <div class="patient-content-layout">
+                        <!-- Voice Translator (Patient View) -->
+                        <div class="voice-translator">
+                            <h3>Voice Translator</h3>
+                            
+                            <div class="language-selectors">
+                                <div class="language-selector">
+                                    <label>Source</label>
+                                    <select id="sourceLanguagePatient">
+                                        <option value="auto">Auto Detect</option>
+                                        <option value="en">English</option>
+                                        <option value="te">Telugu</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="or">Odia</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="language-selector">
+                                    <label>Target</label>
+                                    <select id="targetLanguagePatient">
+                                        <option value="en">English</option>
+                                        <option value="te">Telugu</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="or">Odia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="microphone-container">
+                                <button id="microphoneBtnPatient" class="microphone-btn" onclick="toggleRecordingPatient()">🎤</button>
+                                <div id="recordingStatusPatient" class="recording-status hidden">● RECORDING ●</div>
+                            </div>
+                            
+                            <div id="translationResultsPatient" class="translation-results hidden">
+                                <div class="result-card">
+                                    <h4>Transcription</h4>
+                                    <p id="transcriptionTextPatient" class="result-text"></p>
+                                </div>
+                                <div class="result-card">
+                                    <h4>Translation</h4>
+                                    <p id="translationTextPatient" class="result-text"></p>
+                                    <div style="margin-top: 12px; display: flex; gap: 12px; align-items: center;">
+                                        <button onclick="playTranslationPatient()" class="btn btn-primary">🔊 Play</button>
+                                        <button onclick="addVoiceNote()" class="btn btn-teal">📝 Add Note</button>
+                                        <small style="color: #64748b;">Real AI Models</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Clinical Notes -->
+                        <div class="clinical-notes">
+                            <h3>Clinical Notes</h3>
+                            <div id="clinicalNotesList">
+                                <!-- Notes will be dynamically generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Appointments View -->
+                <div id="appointments-view" class="appointments-view">
+                    <div class="appointments-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2>Appointments</h2>
+                            <p class="appointments-subtitle">Manage patient appointments</p>
+                        </div>
+                        <button onclick="showAddAppointmentModal()" class="btn btn-primary">+ Book Appointment</button>
+                    </div>
+                    
+                    <div class="appointments-content">
+                        <div class="appointments-filters" style="margin-bottom: 24px;">
+                            <input type="date" id="appointmentDate" onchange="filterAppointmentsByDate()" class="form-control" style="width: 200px; display: inline-block; margin-right: 16px;">
+                            <button onclick="showTodayAppointments()" class="btn btn-outline">Today's Appointments</button>
+                        </div>
+                        
+                        <div id="appointmentsList" class="appointments-list">
+                            <div class="empty-state">
+                                <h3>📅 No appointments scheduled</h3>
+                                <p style="color: #64748b;">Click 'Book Appointment' to schedule new appointments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy View -->
+                <div id="pharmacy-view" class="pharmacy-view" style="display: none;">
+                    <div class="pharmacy-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                        <div>
+                            <h2>Pharmacy Inventory</h2>
+                            <p style="color: #64748b; margin: 0;">Manage medicines and inventory</p>
+                        </div>
+                        <button onclick="showAddMedicineModal()" class="btn btn-primary">+ Add Medicine</button>
+                    </div>
+                    
+                    <div class="pharmacy-content">
+                        <div class="pharmacy-search" style="margin-bottom: 24px;">
+                            <input type="text" id="medicineSearch" placeholder="Search medicines..." onchange="searchMedicines()" class="form-control" style="width: 300px; display: inline-block; margin-right: 16px;">
+                            <button onclick="showOutOfStock()" class="btn btn-outline">Out of Stock</button>
+                        </div>
+                        
+                        <div id="medicinesList" class="medicines-grid">
+                            <div class="empty-state">
+                                <h3>💊 No medicines in inventory</h3>
+                                <p style="color: #64748b;">Click 'Add Medicine' to start managing your pharmacy inventory</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Incidents View -->
+                <div id="incidents-view" class="incidents-view" style="display: none;">
+                    <div class="incidents-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                        <div>
+                            <h2>Incident Management</h2>
+                            <p style="color: #64748b; margin: 0;">Track and manage hospital incidents</p>
+                        </div>
+                        <button onclick="showAddIncidentModal()" class="btn btn-primary">+ Report Incident</button>
+                    </div>
+                    
+                    <div id="allIncidentsList" class="incidents-list">
+                        <div class="empty-state">
+                            <h3>🚨 No incidents reported</h3>
+                            <p style="color: #64748b;">Click 'Report Incident' to add new incidents</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div id="patientModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="patientModalTitle">Add New Patient</h3>
+                <button onclick="closeModal('patientModal')" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <input type="hidden" id="editPatientId">
+                    <div class="form-group">
+                        <label class="form-label">Patient Name *</label>
+                        <input type="text" id="patientName" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Age *</label>
+                            <input type="number" id="patientAge" class="form-control" required min="0" max="120">
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Gender *</label>
+                            <select id="patientGender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Bed Number *</label>
+                            <input type="text" id="patientBed" class="form-control" required placeholder="e.g., A-12">
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Status *</label>
+                            <select id="patientStatus" class="form-control" required>
+                                <option value="">Select Status</option>
+                                <option value="stable">Stable</option>
+                                <option value="critical">Critical</option>
+                                <option value="recovering">Recovering</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Attending Doctor *</label>
+                        <input type="text" id="patientDoctor" class="form-control" required placeholder="e.g., Dr. Kumar">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Problem Summary</label>
+                        <textarea id="patientProblem" class="form-control" rows="3" placeholder="Brief description of patient's condition"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeModal('patientModal')" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Patient</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="appointmentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book New Appointment</h3>
+                <button onclick="closeModal('appointmentModal')" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="appointmentForm">
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Patient Name *</label>
+                            <input type="text" id="appointmentPatient" class="form-control" required>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Doctor *</label>
+                            <input type="text" id="appointmentDoctor" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Date *</label>
+                            <input type="date" id="appointmentDateInput" class="form-control" required>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Time *</label>
+                            <input type="time" id="appointmentTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Reason for Visit</label>
+                        <textarea id="appointmentReason" class="form-control" rows="2" placeholder="Brief description"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeModal('appointmentModal')" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Book Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="medicineModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="medicineModalTitle">Add New Medicine</h3>
+                <button onclick="closeModal('medicineModal')" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="medicineForm">
+                    <input type="hidden" id="editMedicineId">
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 2;">
+                            <label class="form-label">Medicine Name *</label>
+                            <input type="text" id="medicineName" class="form-control" required>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Stock Quantity *</label>
+                            <input type="number" id="medicineStock" class="form-control" required min="0">
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Unit Price (₹) *</label>
+                            <input type="number" id="medicinePrice" class="form-control" required min="0" step="0.01">
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Expiry Date *</label>
+                            <input type="date" id="medicineExpiry" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="medicineCategory" class="form-control">
+                            <option value="General">General</option>
+                            <option value="Antibiotic">Antibiotic</option>
+                            <option value="Painkiller">Painkiller</option>
+                            <option value="Vitamin">Vitamin</option>
+                            <option value="Injection">Injection</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeModal('medicineModal')" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Medicine</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="incidentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Report New Incident</h3>
+                <button onclick="closeModal('incidentModal')" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="incidentForm">
+                    <div class="form-group" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Severity *</label>
+                            <select id="incidentSeverity" class="form-control" required>
+                                <option value="">Select Severity</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Location *</label>
+                            <input type="text" id="incidentLocation" class="form-control" required placeholder="e.g., Ward B, Main Pharmacy">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Title *</label>
+                        <input type="text" id="incidentTitle" class="form-control" required placeholder="Brief incident title">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea id="incidentDescription" class="form-control" rows="3" required placeholder="Detailed description of the incident"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeModal('incidentModal')" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Report Incident</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+ <script>
+  // Application State
+    let currentView = 'dashboard';
+    let currentPatient = null;
+    let currentTab = 'notes';
+    let isRecording = false;
+    let isRecordingPatient = false;
+    let recognition = null;
+    let recognitionPatient = null;
+    let currentTranscription = '';
+    let currentTranslation = '';
+    let currentTranscriptionPatient = '';
+    let currentTranslationPatient = '';
+    let speechSynthesis = window.speechSynthesis;
+    let voices = [];
+    
+    // Application Data
+    let patients = [];
+    let appointments = [];
+    let medicines = [];
+    let incidents = [];
+    let dailyRevenue = [];
+    let patientIdCounter = 10001;
+    let appointmentIdCounter = 1001;
+    
+    // Sample translations
+    const sampleTranslations = {
+        'en-te': {
+            'Patient is recovering well': 'రోగి బాగా కోలుకుంటున్నాడు',
+            'Please take rest': 'దయచేసి విశ్రాంతి తీసుకోండి',
+            'Medicine should be taken twice daily': 'రోజుకు రెండుసార్లు మందు తీసుకోవాలి'
+        },
+        'te-en': {
+            'రోగి బాగా కోలుకుంటున్నాడు': 'Patient is recovering well',
+            'దయచేసి విశ్రాంతి తీసుకోండి': 'Please take rest',
+            'రోజుకు రెండుసార్లు మందు తీసుకోవాలి': 'Medicine should be taken twice daily'
+        },
+        'en-hi': {
+            'Patient is recovering well': 'मरीज़ ठीक हो रहा है',
+            'Please take rest': 'कृपया आराम करें',
+            'Medicine should be taken twice daily': 'दवा दिन में दो बार लेनी चाहिए'
+        },
+        'hi-en': {
+            'मरीज़ ठीक हो रहा है': 'Patient is recovering well',
+            'कृपया आराम करें': 'Please take rest',
+            'दवा दिन में दो बार लेनी चाहिए': 'Medicine should be taken twice daily'
+        }
+    };
+    
+    // Navigation Functions
+    function showView(viewName) {
+        console.log(`Switching to view: ${viewName}`);
+        document.getElementById('dashboard-view').style.display = 'none';
+        document.getElementById('patient-detail-view').style.display = 'none';
+        document.getElementById('appointments-view').style.display = 'none';
+        document.getElementById('pharmacy-view').style.display = 'none';
+        document.getElementById('incidents-view').style.display = 'none';
+        
+        if (viewName === 'dashboard') {
+            document.getElementById('dashboard-view').style.display = 'block';
+            updateDashboardMetrics();
+            renderPatientCards();
+            renderRecentIncidents();
+        } else if (viewName === 'patients') {
+            document.getElementById('patient-detail-view').style.display = 'block';
+            if (patients.length > 0) {
+                showPatientDetail(patients[0]);
+            } else {
+                document.getElementById('patient-detail-view').innerHTML = `
+                    <div class="empty-state">
+                        <h2>👥 No Patients Added</h2>
+                        <p style="color: #64748b; margin-bottom: 24px;">Start by adding your first patient to the system</p>
+                        <button onclick="showAddPatientModal()" class="btn btn-primary">+ Add First Patient</button>
+                    </div>
+                `;
+            }
+        } else if (viewName === 'appointments') {
+            document.getElementById('appointments-view').style.display = 'block';
+            renderAppointments();
+        } else if (viewName === 'pharmacy') {
+            document.getElementById('pharmacy-view').style.display = 'block';
+            renderMedicines();
+        } else if (viewName === 'incidents') {
+            document.getElementById('incidents-view').style.display = 'block';
+            renderAllIncidents();
+        }
+        
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        const navLink = document.querySelector(`[data-view="${viewName}"]`);
+        if (navLink) navLink.classList.add('active');
+        currentView = viewName;
+    }
+    
+    // Incident Management
+    function showAddIncidentModal() {
+        document.getElementById('incidentForm').reset();
+        document.getElementById('incidentModal').style.display = 'flex';
+    }
+    
+    function saveIncident(formData) {
+        const newIncident = {
+            id: `INC-${Date.now()}`,
+            title: formData.title,
+            description: formData.description,
+            severity: formData.severity,
+            location: formData.location,
+            timestamp: new Date('2025-10-24T09:50:00Z'), // 03:20 PM IST adjusted to UTC
+            status: 'open'
+        };
+        incidents.push(newIncident);
+        localStorage.setItem('incidents', JSON.stringify(incidents));
+        renderRecentIncidents();
+        renderAllIncidents();
+        updateDashboardMetrics();
+        closeModal('incidentModal');
+    }
+    
+    function renderRecentIncidents() {
+        const container = document.getElementById('incidentsList');
+        if (!container) return;
+        
+        const recentIncidents = incidents.slice(-3).reverse();
+        if (recentIncidents.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>No incidents recorded</h3>
+                    <p style="color: #64748b;">Click 'Add Incident' to report new incidents</p>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = recentIncidents.map(incident => {
+            const timeAgo = getTimeAgo(incident.timestamp);
+            return `
+                <div class="incident-item">
+                    <span class="incident-severity severity-${incident.severity}">${incident.severity.toUpperCase()}</span>
+                    <div class="incident-content">
+                        <h4 class="incident-title">${incident.title}</h4>
+                        <p class="incident-details">${incident.location} • ${timeAgo}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    function renderAllIncidents() {
+        const container = document.getElementById('allIncidentsList');
+        if (!container) return;
+        
+        if (incidents.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>🚨 No incidents reported</h3>
+                    <p style="color: #64748b;">Click 'Report Incident' to add new incidents</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const sortedIncidents = [...incidents].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        container.innerHTML = sortedIncidents.map(incident => {
+            const timeAgo = getTimeAgo(incident.timestamp);
+            return `
+                <div class="incident-card" style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                        <div>
+                            <span class="incident-severity severity-${incident.severity}">${incident.severity.toUpperCase()}</span>
+                            <h4 style="margin: 8px 0 4px 0; color: var(--color-text);">${incident.title}</h4>
+                            <p style="margin: 0 0 8px 0; color: #64748b; font-size: 14px;">${incident.location} • ${timeAgo}</p>
+                        </div>
+                        <span class="status-badge status-${incident.status === 'open' ? 'warning' : 'success'}" style="font-size: 12px;">${incident.status}</span>
+                    </div>
+                    <p style="margin: 0; color: var(--color-text); line-height: 1.5;">${incident.description}</p>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    // Utility Functions
+    function getTimeAgo(timestamp) {
+        const now = new Date('2025-10-24T09:50:00Z'); // 03:20 PM IST adjusted to UTC
+        const diff = now - new Date(timestamp);
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        
+        if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        return 'Just now';
+    }
+    
+    function addDailyRevenue(amount) {
+        const today = new Date('2025-10-24').toISOString().split('T')[0];
+        const existingEntry = dailyRevenue.find(entry => entry.date === today);
+        if (existingEntry) {
+            existingEntry.amount += amount;
+        } else {
+            dailyRevenue.push({ date: today, amount: amount });
+        }
+        localStorage.setItem('dailyRevenue', JSON.stringify(dailyRevenue));
+    }
+    
+    function updateDashboardMetrics() {
+        document.getElementById('activePatientCount').textContent = patients.length;
+        const today = new Date('2025-10-24').toISOString().split('T')[0];
+        const admissionsToday = patients.filter(p => p.admissionDate === today).length;
+        document.getElementById('admissionsToday').textContent = `${admissionsToday} new admission${admissionsToday !== 1 ? 's' : ''} today`;
+        document.getElementById('incidentCount').textContent = incidents.filter(i => i.status === 'open').length;
+        const sevenDaysFromNow = new Date('2025-10-31').toISOString().split('T')[0]; // 7 days from 2025-10-24
+        const expiringMedicines = medicines.filter(m => new Date(m.expiry) <= new Date(sevenDaysFromNow)).length;
+        document.getElementById('expiryAlerts').textContent = expiringMedicines;
+        const currentMonth = new Date('2025-10-24').toISOString().slice(0, 7);
+        const monthlyTotal = dailyRevenue
+            .filter(entry => entry.date.startsWith(currentMonth))
+            .reduce((total, entry) => total + entry.amount, 0);
+        document.getElementById('monthlyRevenue').textContent = `₹${Math.round(monthlyTotal).toLocaleString()}`;
+    }
+    
+    // Modal Functions
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+    
+    // Form Handlers
+    function handlePatientForm(event) {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById('patientName').value.trim(),
+            age: parseInt(document.getElementById('patientAge').value),
+            gender: document.getElementById('patientGender').value,
+            bed: document.getElementById('patientBed').value.trim(),
+            status: document.getElementById('patientStatus').value,
+            doctor: document.getElementById('patientDoctor').value.trim(),
+            problem: document.getElementById('patientProblem').value.trim()
+        };
+        
+        if (!formData.name || isNaN(formData.age) || !formData.gender || !formData.bed || !formData.status || !formData.doctor) {
+            alert('Please fill all required fields.');
+            return;
+        }
+        
+        const editId = document.getElementById('editPatientId').value;
+        if (!editId && patients.some(p => p.bed === formData.bed)) {
+            alert('Bed number already assigned.');
+            return;
+        }
+        
+        savePatient(formData);
+    }
+    
+    function handleAppointmentForm(event) {
+        event.preventDefault();
+        const formData = {
+            patient: document.getElementById('appointmentPatient').value.trim(),
+            doctor: document.getElementById('appointmentDoctor').value.trim(),
+            date: document.getElementById('appointmentDateInput').value,
+            time: document.getElementById('appointmentTime').value,
+            reason: document.getElementById('appointmentReason').value.trim()
+        };
+        
+        if (!formData.patient || !formData.doctor || !formData.date || !formData.time) {
+            alert('Please fill all required fields.');
+            return;
+        }
+        
+        saveAppointment(formData);
+        alert('Appointment saved successfully!');
+    }
+    
+    function handleMedicineForm(event) {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById('medicineName').value.trim(),
+            stock: document.getElementById('medicineStock').value,
+            price: document.getElementById('medicinePrice').value,
+            expiry: document.getElementById('medicineExpiry').value,
+            category: document.getElementById('medicineCategory').value
+        };
+        saveMedicine(formData);
+    }
+    
+    function handleIncidentForm(event) {
+        event.preventDefault();
+        const formData = {
+            title: document.getElementById('incidentTitle').value.trim(),
+            description: document.getElementById('incidentDescription').value.trim(),
+            severity: document.getElementById('incidentSeverity').value,
+            location: document.getElementById('incidentLocation').value.trim()
+        };
+        saveIncident(formData);
+    }
+    
+    // Voice and File Functions
+    function startVoiceRecording() {
+        if (patients.length === 0) {
+            alert('Please add at least one patient first.');
+            return;
+        }
+        toggleRecording();
+    }
+    
+    function handleInvoiceUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (currentPatient) {
+            if (!currentPatient.files) currentPatient.files = [];
+            currentPatient.files.push({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                uploadDate: new Date('2025-10-24').toISOString().split('T')[0]
+            });
+            localStorage.setItem('patients', JSON.stringify(patients));
+            alert(`File "${file.name}" uploaded successfully for ${currentPatient.name}`);
+        } else {
+            alert('Please select a patient first to upload files.');
+        }
+    }
+    
+    function showPatientDetail(patient) {
+        currentPatient = patient;
+        document.getElementById('dashboard-view').style.display = 'none';
+        document.getElementById('appointments-view').style.display = 'none';
+        document.getElementById('patient-detail-view').style.display = 'block';
+        document.getElementById('patientDetailName').textContent = patient.name;
+        document.getElementById('patientDetailId').textContent = `IP: ${patient.id}`;
+        document.getElementById('patientDetailAge').textContent = `${patient.age}Y / ${patient.gender}`;
+        document.getElementById('patientDetailBed').textContent = `Bed: ${patient.bed}`;
+        document.getElementById('patientDetailDoctor').textContent = patient.doctor;
+        const initials = patient.name.split(' ').map(n => n[0]).join('');
+        document.getElementById('patientDetailAvatar').textContent = initials;
+        const statusBadge = document.getElementById('patientDetailStatus');
+        statusBadge.textContent = patient.status;
+        statusBadge.className = `status-badge status-${patient.status}`;
+        loadClinicalNotes(patient);
+        currentView = 'patient-detail';
+    }
+    
+    function loadClinicalNotes(patient) {
+        const notesList = document.getElementById('clinicalNotesList');
+        notesList.innerHTML = '';
+        if (patient.notes && patient.notes.length > 0) {
+            patient.notes.forEach(note => {
+                const noteElement = document.createElement('div');
+                noteElement.className = 'note-item';
+                let translationHtml = '';
+                if (note.telugu) translationHtml += `<div class="note-translation">${note.telugu}</div>`;
+                if (note.hindi) translationHtml += `<div class="note-translation">${note.hindi}</div>`;
+                if (note.odia) translationHtml += `<div class="note-translation">${note.odia}</div>`;
+                const noteTypeIcon = note.type === 'voice' ? '🎤' : '📝';
+                noteElement.innerHTML = `
+                    <div class="note-header">
+                        <h4 class="note-doctor">${noteTypeIcon} ${note.doctor}</h4>
+                        <p class="note-date">${note.date}</p>
+                    </div>
+                    <div class="note-content">
+                        <p class="note-text">${note.english}</p>
+                        ${translationHtml}
+                    </div>
+                `;
+                notesList.appendChild(noteElement);
+            });
+        } else {
+            notesList.innerHTML = '<p style="color: #64748b; font-style: italic;">No clinical notes available for this patient.</p>';
+        }
+    }
+    
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        currentTab = tabName;
+        if (tabName === 'notes') {
+            loadClinicalNotes(currentPatient);
+        } else {
+            document.getElementById('clinicalNotesList').innerHTML = `<p style="color: #64748b; font-style: italic;">${tabName.charAt(0).toUpperCase() + tabName.slice(1)} view coming soon...</p>`;
+        }
+    }
+    
+    // Language Code Mapping
+    function getLanguageCode(lang, forRecognition = false) {
+        const codes = {
+            'en': forRecognition ? 'en-US' : 'en',
+            'te': forRecognition ? 'te-IN' : 'te', 
+            'hi': forRecognition ? 'hi-IN' : 'hi',
+            'or': forRecognition ? 'hi-IN' : 'or',
+            'auto': forRecognition ? 'en-US' : 'en'
+        };
+        return codes[lang] || (forRecognition ? 'en-US' : 'en');
+    }
+    
+    // Initialize Speech Recognition
+    function initializeSpeechRecognition() {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            alert('Speech Recognition not supported in this browser. Please use Chrome or Edge.');
+            return false;
+        }
+        return true;
+    }
+    
+    // Voice Translator Functions
+    function toggleRecording() {
+        if (!initializeSpeechRecognition()) return;
+        const btn = document.getElementById('microphoneBtn');
+        const status = document.getElementById('recordingStatus');
+        const results = document.getElementById('translationResults');
+        if (!isRecording) {
+            startRecording(btn, status, results, 'dashboard');
+        } else {
+            stopRecording(btn, status, 'dashboard');
+        }
+    }
+    
+    function startRecording(btn, status, results, context) {
+        const sourceLang = document.getElementById(context === 'dashboard' ? 'sourceLanguage' : 'sourceLanguagePatient').value;
+        const targetLang = document.getElementById(context === 'dashboard' ? 'targetLanguage' : 'targetLanguagePatient').value;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const currentRecognition = new SpeechRecognition();
+        if (context === 'dashboard') {
+            recognition = currentRecognition;
+        } else {
+            recognitionPatient = currentRecognition;
+        }
+        currentRecognition.lang = getLanguageCode(sourceLang === 'auto' ? 'en' : sourceLang, true);
+        currentRecognition.continuous = false;
+        currentRecognition.interimResults = false;
+        currentRecognition.maxAlternatives = 1;
+        currentRecognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            const transcriptionElement = document.getElementById(context === 'dashboard' ? 'transcriptionText' : 'transcriptionTextPatient');
+            transcriptionElement.textContent = transcript;
+            if (context === 'dashboard') {
+                currentTranscription = transcript;
+            } else {
+                currentTranscriptionPatient = transcript;
+            }
+            if (sourceLang !== targetLang && sourceLang !== 'auto') {
+                translateText(transcript, sourceLang, targetLang, context);
+            } else if (sourceLang === 'auto') {
+                translateText(transcript, 'auto', targetLang, context);
+            } else {
+                const translationElement = document.getElementById(context === 'dashboard' ? 'translationText' : 'translationTextPatient');
+                translationElement.textContent = transcript;
+                speakText(transcript, targetLang, context);
+            }
+        };
+        currentRecognition.onerror = (event) => {
+            resetRecordingState();
+            alert('Speech recognition failed. Please try again.');
+        };
+        currentRecognition.onend = () => {
+            resetRecordingState();
+        };
+        currentRecognition.start();
+        isRecording = context === 'dashboard';
+        isRecordingPatient = context === 'patient';
+        btn.classList.add('recording');
+        btn.innerHTML = '● LISTENING ●';
+        status.classList.remove('hidden');
+        status.textContent = '● LISTENING ●';
+        results.classList.remove('hidden');
+        const transcriptionElement = document.getElementById(context === 'dashboard' ? 'transcriptionText' : 'transcriptionTextPatient');
+        const translationElement = document.getElementById(context === 'dashboard' ? 'translationText' : 'translationTextPatient');
+        transcriptionElement.textContent = 'Listening...';
+        translationElement.textContent = 'Waiting...';
+    }
+    
+    function stopRecording(btn, status, context) {
+        const currentRecognition = context === 'dashboard' ? recognition : recognitionPatient;
+        if (currentRecognition) {
+            currentRecognition.stop();
+        }
+        if (context === 'dashboard') {
+            isRecording = false;
+        } else {
+            isRecordingPatient = false;
+        }
+        btn.classList.remove('recording');
+        btn.innerHTML = '🎤';
+        status.classList.add('hidden');
+    }
+    
+    async function translateText(text, sourceLang, targetLang, context) {
+        const statusElement = document.getElementById(context === 'dashboard' ? 'recordingStatus' : 'recordingStatusPatient');
+        const translationElement = document.getElementById(context === 'dashboard' ? 'translationText' : 'translationTextPatient');
+        statusElement.textContent = 'Translating...';
+        statusElement.classList.remove('hidden');
+        let fromLang = sourceLang === 'auto' ? 'en' : sourceLang;
+        const sampleKey = `${fromLang}-${targetLang}`;
+        if (sampleTranslations[sampleKey] && sampleTranslations[sampleKey][text]) {
+            const translatedText = sampleTranslations[sampleKey][text];
+            translationElement.textContent = translatedText;
+            if (context === 'dashboard') {
+                currentTranslation = translatedText;
+            } else {
+                currentTranslationPatient = translatedText;
+            }
+            statusElement.textContent = 'Playing audio...';
+            speakText(translatedText, targetLang, context);
+            return;
+        }
+        try {
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${targetLang}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            const translatedText = data.responseData.translatedText;
+            translationElement.textContent = translatedText;
+            if (context === 'dashboard') {
+                currentTranslation = translatedText;
+            } else {
+                currentTranslationPatient = translatedText;
+            }
+            statusElement.textContent = 'Playing audio...';
+            speakText(translatedText, targetLang, context);
+        } catch (error) {
+            translationElement.textContent = 'Translation failed. Please try again.';
+            statusElement.classList.add('hidden');
+        }
+    }
+    
+    function speakText(text, language, context) {
+        const statusElement = document.getElementById(context === 'dashboard' ? 'recordingStatus' : 'recordingStatusPatient');
+        if (!speechSynthesis) {
+            statusElement.classList.add('hidden');
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = getLanguageCode(language, true);
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        const availableVoices = speechSynthesis.getVoices();
+        const targetVoice = availableVoices.find(voice => voice.lang.startsWith(getLanguageCode(language, true).split('-')[0]));
+        if (targetVoice) utterance.voice = targetVoice;
+        utterance.onstart = () => statusElement.textContent = '🔊 Playing audio...';
+        utterance.onend = () => {
+            statusElement.textContent = '✓ Complete';
+            setTimeout(() => statusElement.classList.add('hidden'), 2000);
+        };
+        utterance.onerror = () => {
+            statusElement.textContent = '✗ Audio failed';
+            setTimeout(() => statusElement.classList.add('hidden'), 2000);
+        };
+        speechSynthesis.speak(utterance);
+    }
+    
+    function resetRecordingState() {
+        const btn = document.getElementById('microphoneBtn');
+        const btnPatient = document.getElementById('microphoneBtnPatient');
+        const status = document.getElementById('recordingStatus');
+        const statusPatient = document.getElementById('recordingStatusPatient');
+        if (btn) {
+            btn.innerHTML = '🎤';
+            btn.disabled = false;
+            btn.classList.remove('recording');
+        }
+        if (btnPatient) {
+            btnPatient.innerHTML = '🎤';
+            btnPatient.disabled = false;
+            btnPatient.classList.remove('recording');
+        }
+        if (status) status.classList.add('hidden');
+        if (statusPatient) statusPatient.classList.add('hidden');
+        isRecording = false;
+        isRecordingPatient = false;
+    }
+    
+    function playTranslation() {
+        if (currentTranslation) {
+            const targetLang = document.getElementById('targetLanguage').value;
+            speakText(currentTranslation, targetLang, 'dashboard');
+        } else if (currentTranscription) {
+            const sourceLang = document.getElementById('sourceLanguage').value;
+            speakText(currentTranscription, sourceLang, 'dashboard');
+        } else {
+            alert('No translation available to play. Please record first.');
+        }
+    }
+    
+    function toggleRecordingPatient() {
+        if (!initializeSpeechRecognition()) return;
+        const btn = document.getElementById('microphoneBtnPatient');
+        const status = document.getElementById('recordingStatusPatient');
+        const results = document.getElementById('translationResultsPatient');
+        if (!isRecordingPatient) {
+            startRecording(btn, status, results, 'patient');
+        } else {
+            stopRecording(btn, status, 'patient');
+        }
+    }
+    
+    function playTranslationPatient() {
+        if (currentTranslationPatient) {
+            const targetLang = document.getElementById('targetLanguagePatient').value;
+            speakText(currentTranslationPatient, targetLang, 'patient');
+        } else if (currentTranscriptionPatient) {
+            const sourceLang = document.getElementById('sourceLanguagePatient').value;
+            speakText(currentTranscriptionPatient, sourceLang, 'patient');
+        } else {
+            alert('No translation available to play. Please record first.');
+        }
+    }
+    
+    // Patient Management Functions
+    function renderPatientCards() {
+        const container = document.getElementById('patientCards');
+        if (!container) {
+            console.error('Patient cards container not found');
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        if (patients.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state" style="min-width: 100%; text-align: center; padding: 40px;">
+                    <h3>👥 No active patients</h3>
+                    <p style="color: #64748b; margin-bottom: 16px;">Add patients to start managing their care</p>
+                    <button onclick="showAddPatientModal()" class="btn btn-primary">+ Add Patient</button>
+                </div>
+            `;
+            return;
+        }
+        
+        patients.forEach(patient => {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'patient-card';
+            cardElement.onclick = () => showPatientDetail(patient);
+            const initials = patient.name.split(' ').map(n => n[0]).join('');
+            cardElement.innerHTML = `
+                <div class="patient-header">
+                    <div class="patient-avatar">${initials}</div>
+                    <div class="patient-info">
+                        <h4>${patient.name}</h4>
+                        <p>${patient.id}</p>
+                    </div>
+                </div>
+                <div class="patient-details">
+                    <span class="patient-bed">Bed: ${patient.bed}</span>
+                    <span class="status-badge status-${patient.status}">${patient.status}</span>
+                </div>
+                <div class="patient-actions" style="margin-top: 12px; display: flex; gap: 8px;">
+                    <button onclick="event.stopPropagation(); editPatient('${patient.id}')" class="btn btn-sm" style="padding: 4px 8px; font-size: 12px;">✏️ Edit</button>
+                    <button onclick="event.stopPropagation(); deletePatient('${patient.id}')" class="btn btn-sm" style="padding: 4px 8px; font-size: 12px; background: #fee2e2; color: #dc2626;">🗑️ Delete</button>
+                </div>
+            `;
+            container.appendChild(cardElement);
+        });
+        console.log(`Rendered ${patients.length} patient cards`, patients);
+    }
+    
+    function addVoiceNote() {
+        if (!currentPatient) {
+            alert('No patient selected.');
+            return;
+        }
+        const transcription = document.getElementById('transcriptionTextPatient').textContent;
+        const translation = document.getElementById('translationTextPatient').textContent;
+        if (!transcription || transcription === 'Processing...' || transcription === 'Listening...' || transcription === 'Waiting...') {
+            alert('Please record and wait for transcription to complete first.');
+            return;
+        }
+        const sourceLang = document.getElementById('sourceLanguagePatient').value;
+        const targetLang = document.getElementById('targetLanguagePatient').value;
+        const newNote = {
+            doctor: 'Dr. Current User',
+            date: new Date('2025-10-24T09:50:00Z').toLocaleString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            }),
+            english: sourceLang === 'en' ? transcription : (translation && translation !== 'Waiting...' ? translation : transcription),
+            type: 'voice'
+        };
+        if (sourceLang !== targetLang && translation && translation !== 'Waiting...' && translation !== 'Translation failed. Please check your internet connection and try again.') {
+            newNote[getLanguageKey(sourceLang === 'en' ? targetLang : sourceLang)] = sourceLang === 'en' ? translation : transcription;
+        }
+        if (!currentPatient.notes) currentPatient.notes = [];
+        currentPatient.notes.unshift(newNote);
+        localStorage.setItem('patients', JSON.stringify(patients));
+        loadClinicalNotes(currentPatient);
+        document.getElementById('translationResultsPatient').classList.add('hidden');
+        document.getElementById('transcriptionTextPatient').textContent = '';
+        document.getElementById('translationTextPatient').textContent = '';
+        currentTranscriptionPatient = '';
+        currentTranslationPatient = '';
+        alert('Voice note added successfully!');
+    }
+    
+    function getLanguageKey(langCode) {
+        switch(langCode) {
+            case 'te': return 'telugu';
+            case 'hi': return 'hindi';
+            case 'or': return 'odia';
+            default: return 'english';
+        }
+    }
+    
+    // Patient CRUD Operations
+    function showAddPatientModal() {
+        const modal = document.getElementById('patientModal');
+        if (modal) {
+            document.getElementById('patientModalTitle').textContent = 'Add New Patient';
+            document.getElementById('patientForm').reset();
+            document.getElementById('editPatientId').value = '';
+            modal.style.display = 'flex';
+            console.log('Opened add patient modal');
+        } else {
+            console.error('Patient modal not found');
+        }
+    }
+    
+    function editPatient(patientId) {
+        const patient = patients.find(p => p.id === patientId);
+        if (!patient) {
+            alert('Patient not found.');
+            return;
+        }
+        document.getElementById('patientModalTitle').textContent = 'Edit Patient';
+        document.getElementById('editPatientId').value = patient.id;
+        document.getElementById('patientName').value = patient.name;
+        document.getElementById('patientAge').value = patient.age;
+        document.getElementById('patientGender').value = patient.gender;
+        document.getElementById('patientBed').value = patient.bed;
+        document.getElementById('patientStatus').value = patient.status;
+        document.getElementById('patientDoctor').value = patient.doctor;
+        document.getElementById('patientProblem').value = patient.problem || '';
+        document.getElementById('patientModal').style.display = 'flex';
+        console.log(`Editing patient: ${patientId}`);
+    }
+    
+    function deletePatient(patientId) {
+        if (confirm('Are you sure you want to delete this patient? This cannot be undone.')) {
+            patients = patients.filter(p => p.id !== patientId);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            renderPatientCards();
+            updateDashboardMetrics();
+            if (currentPatient && currentPatient.id === patientId) {
+                showView('dashboard');
+            }
+            console.log(`Deleted patient: ${patientId}, ${patients.length} patients remaining`);
+        }
+    }
+    
+    function savePatient(formData) {
+        const editId = document.getElementById('editPatientId')?.value;
+        if (editId) {
+            const patient = patients.find(p => p.id === editId);
+            if (patient) {
+                patient.name = formData.name;
+                patient.age = parseInt(formData.age);
+                patient.gender = formData.gender;
+                patient.bed = formData.bed;
+                patient.status = formData.status;
+                patient.doctor = formData.doctor;
+                patient.problem = formData.problem;
+            }
+        } else {
+            const newPatient = {
+                id: `IP-${patientIdCounter++}`,
+                name: formData.name,
+                age: parseInt(formData.age),
+                gender: formData.gender,
+                bed: formData.bed,
+                status: formData.status,
+                doctor: formData.doctor,
+                problem: formData.problem,
+                notes: [],
+                files: [],
+                admissionDate: new Date('2025-10-24').toISOString().split('T')[0]
+            };
+            patients.push(newPatient);
+            addDailyRevenue(5000 + Math.random() * 10000);
+        }
+        localStorage.setItem('patients', JSON.stringify(patients));
+        closeModal('patientModal');
+        showView('dashboard');
+        renderPatientCards();
+        updateDashboardMetrics();
+        console.log(`Saved patient, total patients: ${patients.length}`, patients);
+    }
+    
+    // Appointment Management
+    function showAddAppointmentModal() {
+        const modal = document.getElementById('appointmentModal');
+        if (modal) {
+            document.getElementById('appointmentForm').reset();
+            document.getElementById('appointmentDateInput').value = new Date('2025-10-24').toISOString().split('T')[0];
+            modal.style.display = 'flex';
+            console.log('Opened add appointment modal');
+        } else {
+            console.error('Appointment modal not found');
+        }
+    }
+    
+    function saveAppointment(formData) {
+        const newAppointment = {
+            id: `APT-${appointmentIdCounter++}`,
+            patient: formData.patient,
+            doctor: formData.doctor,
+            date: formData.date,
+            time: formData.time,
+            reason: formData.reason,
+            status: 'scheduled'
+        };
+        appointments.push(newAppointment);
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+        renderAppointments();
+        closeModal('appointmentModal');
+        showView('appointments');
+        console.log(`Saved appointment: ${newAppointment.id}, total appointments: ${appointments.length}`);
+    }
+    
+    function cancelAppointment(appointmentId) {
+        if (confirm('Are you sure you want to cancel this appointment?')) {
+            const appointment = appointments.find(a => a.id === appointmentId);
+            if (appointment) {
+                appointment.status = 'cancelled';
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                renderAppointments();
+                console.log(`Cancelled appointment: ${appointmentId}`);
+            }
+        }
+    }
+    
+    function renderAppointments() {
+        const container = document.getElementById('appointmentsList');
+        if (!container) {
+            console.error('Appointments list container not found');
+            return;
+        }
+        const filterDate = document.getElementById('appointmentDate').value || new Date('2025-10-24').toISOString().split('T')[0];
+        let filteredAppointments = appointments;
+        if (filterDate) {
+            filteredAppointments = appointments.filter(a => a.date === filterDate);
+        }
+        if (filteredAppointments.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>📅 No appointments found</h3>
+                    <p style="color: #64748b;">No appointments scheduled for the selected period</p>
+                    <button onclick="showAddAppointmentModal()" class="btn btn-primary">+ Add Appointment</button>
+                </div>
+            `;
+            return;
+        }
+        container.innerHTML = filteredAppointments.map(appointment => `
+            <div class="appointment-card" style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: var(--color-text);">${appointment.patient}</h4>
+                        <p style="margin: 0 0 4px 0; color: #64748b; font-size: 14px;">Dr. ${appointment.doctor}</p>
+                        <p style="margin: 0 0 4px 0; color: #64748b; font-size: 14px;">${appointment.date} at ${appointment.time}</p>
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">${appointment.reason || 'No reason specified'}</p>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span class="status-badge status-${appointment.status === 'scheduled' ? 'success' : 'error'}" style="font-size: 12px;">${appointment.status}</span>
+                        ${appointment.status === 'scheduled' ? `<button onclick="cancelAppointment('${appointment.id}')" class="btn btn-sm" style="background: #fee2e2; color: #dc2626; padding: 4px 8px;">Cancel</button>` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function showTodayAppointments() {
+        const today = new Date('2025-10-24').toISOString().split('T')[0];
+        document.getElementById('appointmentDate').value = today;
+        filterAppointmentsByDate();
+    }
+    
+    function filterAppointmentsByDate() {
+        renderAppointments();
+    }
+    
+    // Medicine Management
+    function showAddMedicineModal() {
+        const modal = document.getElementById('medicineModal');
+        if (modal) {
+            document.getElementById('medicineModalTitle').textContent = 'Add New Medicine';
+            document.getElementById('medicineForm').reset();
+            document.getElementById('editMedicineId').value = '';
+            modal.style.display = 'flex';
+        }
+    }
+    
+    function saveMedicine(formData) {
+        const editId = document.getElementById('editMedicineId').value;
+        if (editId) {
+            const medicine = medicines.find(m => m.id === editId);
+            if (medicine) {
+                medicine.name = formData.name;
+                medicine.stock = parseInt(formData.stock);
+                medicine.price = parseFloat(formData.price);
+                medicine.expiry = formData.expiry;
+                medicine.category = formData.category;
+            }
+        } else {
+            const newMedicine = {
+                id: `MED-${Date.now()}`,
+                name: formData.name,
+                stock: parseInt(formData.stock),
+                price: parseFloat(formData.price),
+                expiry: formData.expiry,
+                category: formData.category
+            };
+            medicines.push(newMedicine);
+        }
+        localStorage.setItem('medicines', JSON.stringify(medicines));
+        renderMedicines();
+        updateDashboardMetrics();
+        closeModal('medicineModal');
+    }
+    
+    function renderMedicines() {
+        const container = document.getElementById('medicinesList');
+        if (!container) return;
+        if (medicines.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>💊 No medicines in inventory</h3>
+                    <p style="color: #64748b;">Click 'Add Medicine' to start managing your pharmacy inventory</p>
+                </div>
+            `;
+            return;
+        }
+        const today = new Date('2025-10-24');
+        const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+        container.innerHTML = medicines.map(medicine => {
+            const expiryDate = new Date(medicine.expiry);
+            const isExpiringSoon = expiryDate <= sevenDaysFromNow;
+            const isOutOfStock = medicine.stock === 0;
+            return `
+                <div class="medicine-card" style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; ${isOutOfStock ? 'border-color: #dc2626; background: #fef2f2;' : isExpiringSoon ? 'border-color: #d97706; background: #fffbeb;' : ''}">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                        <div>
+                            <h4 style="margin: 0 0 4px 0; color: var(--color-text);">${medicine.name}</h4>
+                            <p style="margin: 0; color: #64748b; font-size: 12px; text-transform: uppercase; font-weight: 600;">${medicine.category}</p>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button onclick="editMedicine('${medicine.id}')" class="btn btn-sm" style="padding: 4px 8px; font-size: 12px;">✏️</button>
+                            <button onclick="deleteMedicine('${medicine.id}')" class="btn btn-sm" style="background: #fee2e2; color: #dc2626; padding: 4px 8px; font-size: 12px;">🗑️</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="margin: 0 0 4px 0; font-weight: 600; ${isOutOfStock ? 'color: #dc2626;' : medicine.stock <= 10 ? 'color: #d97706;' : 'color: var(--color-text);'}">Stock: ${medicine.stock}</p>
+                            <p style="margin: 0; color: #64748b; font-size: 14px;">₹${medicine.price}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="margin: 0; font-size: 12px; ${isExpiringSoon ? 'color: #d97706; font-weight: 600;' : 'color: #64748b;'}">Expires: ${medicine.expiry}</p>
+                            ${isOutOfStock ? '<span class="status-badge" style="background: #fee2e2; color: #dc2626; font-size: 10px;">OUT OF STOCK</span>' : isExpiringSoon ? '<span class="status-badge" style="background: #fef3c7; color: #d97706; font-size: 10px;">EXPIRING SOON</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
+        container.style.gap = '20px';
+    }
+    
+    // Initialize Data
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM fully loaded, initializing application');
+        const storedPatients = localStorage.getItem('patients');
+        if (storedPatients) {
+            patients = JSON.parse(storedPatients);
+            const maxId = patients.reduce((max, p) => {
+                const idNum = parseInt(p.id.replace('IP-', ''));
+                return idNum > max ? idNum : max;
+            }, 10000);
+            patientIdCounter = maxId + 1;
+        }
+        const storedAppointments = localStorage.getItem('appointments');
+        if (storedAppointments) {
+            appointments = JSON.parse(storedAppointments);
+            const maxAptId = appointments.reduce((max, a) => {
+                const idNum = parseInt(a.id.replace('APT-', ''));
+                return idNum > max ? idNum : max;
+            }, 1000);
+            appointmentIdCounter = maxAptId + 1;
+        }
+        const storedMedicines = localStorage.getItem('medicines');
+        if (storedMedicines) {
+            medicines = JSON.parse(storedMedicines);
+        }
+        const storedIncidents = localStorage.getItem('incidents');
+        if (storedIncidents) {
+            incidents = JSON.parse(storedIncidents);
+        }
+        const storedRevenue = localStorage.getItem('dailyRevenue');
+        if (storedRevenue) {
+            dailyRevenue = JSON.parse(storedRevenue);
+        }
+        
+        // Initialize dashboard
+        showView('dashboard');
+        renderPatientCards();
+        updateDashboardMetrics();
+        renderRecentIncidents();
+        renderAppointments();
+        renderMedicines();
+        
+        // Add event listeners
+        const patientForm = document.getElementById('patientForm');
+        if (patientForm) {
+            patientForm.addEventListener('submit', handlePatientForm);
+        } else {
+            console.error('Patient form not found');
+        }
+        
+        const appointmentForm = document.getElementById('appointmentForm');
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', handleAppointmentForm);
+        } else {
+            console.error('Appointment form not found');
+        }
+        
+        const medicineForm = document.getElementById('medicineForm');
+        if (medicineForm) {
+            medicineForm.addEventListener('submit', handleMedicineForm);
+        }
+        
+        const incidentForm = document.getElementById('incidentForm');
+        if (incidentForm) {
+            incidentForm.addEventListener('submit', handleIncidentForm);
+        }
+        
+        // Ensure Add Patient button is present in dashboard
+        const dashboardView = document.getElementById('dashboard-view');
+        if (dashboardView) {
+            console.log('Dashboard view found');
+            let addButton = dashboardView.querySelector('.add-patient-btn');
+            if (!addButton) {
+                console.log('Add patient button not found, adding it');
+                addButton = document.createElement('button');
+                addButton.className = 'btn btn-primary add-patient-btn';
+                addButton.textContent = '+ Add New Patient';
+                addButton.onclick = showAddPatientModal;
+                addButton.style.margin = '10px 0';
+                addButton.style.padding = '5px 15px';
+                addButton.style.display = 'block'; // Ensure visibility
+                dashboardView.insertBefore(addButton, dashboardView.firstChild);
+                console.log('Add patient button added at the top');
+            } else {
+                console.log('Add patient button already exists, ensuring visibility');
+                addButton.style.display = 'block'; // Force visibility
+                addButton.style.margin = '10px 0';
+                addButton.style.padding = '5px 15px';
+            }
+        } else {
+            console.error('Dashboard view not found in DOM. Please ensure <div id="dashboard-view"> exists in your HTML.');
+            // Fallback: Add button to body if dashboard-view is missing
+            addButton = document.createElement('button');
+            addButton.className = 'btn btn-primary add-patient-btn';
+            addButton.textContent = '+ Add New Patient (Fallback)';
+            addButton.onclick = showAddPatientModal;
+            addButton.style.margin = '10px 0';
+            addButton.style.padding = '5px 15px';
+            addButton.style.display = 'block';
+            document.body.insertBefore(addButton, document.body.firstChild);
+            console.log('Fallback: Add patient button added to body');
+        }
+    });
+</script>
