@@ -1,5 +1,9 @@
 # TEAM-33 — GenAI-Powered Real-Time Multilingual AI Agent
 
+🎥 **Project Demo Video**  
+👉 https://drive.google.com/file/d/1Bu0zHV2MonN1LOHjehUz5SoCTc8_aSE3/view?usp=sharing
+
+
 ## Problem Statement
 
 Effective communication in multilingual environments—such as healthcare, education, and global workplaces—remains a challenge. Existing translation tools are often delayed, screen-dependent, or lack contextual understanding, resulting in miscommunication, inefficiency, and cognitive overload.
